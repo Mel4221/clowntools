@@ -19,6 +19,7 @@
     "dist:mac": "npm run transpile:electron && npm run build && npx electron-builder --mac --arm64"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "os-utils": "^0.0.14",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",

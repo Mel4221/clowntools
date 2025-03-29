@@ -30,6 +30,8 @@ app.on('ready',()=>{
 
 function handleCloseEvents(mainWindow: BrowserWindow)
 {
+
+    return;
     let willClose = false;
     if(willClose){
         return;

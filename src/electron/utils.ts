@@ -2,6 +2,8 @@ import { ipcMain, WebContents ,app,WebFrameMain} from "electron";
 import { url } from "inspector";
 import path from 'path'
 import { pathToFileURL } from "url";
+
+
 export function isDev(): boolean
 {
     return process.env.NODE_ENV === 'development';
