@@ -1,0 +1,20 @@
+{
+    "appId":"com.clowntools.ready",
+    "files":["dist-electron","dist-react"],
+    "extraResources":[
+    "dist-electron/preload.cjs",
+    "src/ui/assets/**"
+    ],
+    "icon": "src/ui/assets/setting.png",
+    "mac":{
+        "target":"dmg"
+    },
+    "linux":{
+        "target":["AppImage", "snap"],
+        "category":"Utility"
+    },
+    "win":{
+        "target":["portable","nsis","msi"]
+    }
+
+}
