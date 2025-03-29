@@ -49,3 +49,12 @@ export function validateEventFrame(frame: WebFrameMain)
 export function getAssetPath(){
     return path.join(app.getAppPath(),isDev()?'.':'...','/src/assets');
 }
+
+export function clownMessage():ClownMessage
+{
+    let message:ClownMessage = {
+        type:getAssetPath()
+    };
+
+    return message;
+}

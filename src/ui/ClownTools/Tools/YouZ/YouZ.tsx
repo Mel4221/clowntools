@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState  } from 'react'
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -16,7 +16,35 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel'
 import { Download } from 'react-bootstrap-icons';
 
+
 function YouZ() {
+    const[imgUrl,setImageUrl] = useState("/img.jpg");
+
+    useEffect(() => {
+        const fetchClownMessage = async () => {
+          try {
+            // @ts-ignore
+            const message = await electron.getClownMessage();
+            const img = `${message.type}/img.jpg`;
+            //setImageUrl(img);
+
+
+            console.log(img);
+          } catch (error) {
+            console.error('Error fetching clown message:', error);
+          }
+        };
+      
+        fetchClownMessage();
+      
+        // If getClownMessage returns a cleanup function (like an unsubscribe),
+        // you'll need to handle it differently with async/await
+        return () => {
+          // If there's any cleanup needed, it would go here
+          // Note: You can't return the promise directly from useEffect cleanup
+        };
+      }, []);
+
     return (
          <>
                 <Row className="p-3">
@@ -41,7 +69,7 @@ function YouZ() {
                                     <Card className="h-100 shadow-sm bg-black text-white">
                                         <Card.Img 
                                             variant="top" 
-                                            src="img.jpg"
+                                            src={imgUrl}
                                             style={{ 
                                                 height: '200px', 
                                                 objectFit: 'cover' 

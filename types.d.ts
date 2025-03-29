@@ -1,3 +1,7 @@
+type ClownMessage = 
+{
+    type:string;
+}
 type Statistics =
 {
     cpu_usage: number;
@@ -12,11 +16,14 @@ type EventPayloadMaping =
 {
     statistics: Statistics;
     getStaticData: StaticData;
+    getClownMessage:ClownMessage;
+
 }
 type UnsubscribeFunction = ()=>void;
 interface Window{
     electron:{
         subscribeStatistics:(callback: (statistics:Statistics)=>void)=>UnsubscribeFunction; 
         getStaticData:()=>Promise<StaticData>;
+        getClownMessage:(request)=>Promise<ClownMessage>;
     }
 }

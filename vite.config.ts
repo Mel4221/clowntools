@@ -6,10 +6,12 @@ export default defineConfig({
   plugins: [react()],
   base:'./',
   build:{
+    assetsDir:'src/ui/assets',
     outDir:'dist-react',
   },
   server:{
     port:5123,
     strictPort:true,
+    
   }
 })

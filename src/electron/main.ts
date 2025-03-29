@@ -1,7 +1,7 @@
 import {app,BrowserView, BrowserWindow, ipcMain,Tray} from 'electron';
 import getPreload from './getPreload.js';
 import path from 'path';
-import { isDev ,ipcMainHandle, getUIPath, getAssetPath } from './utils.js';
+import { isDev ,ipcMainHandle, getUIPath, getAssetPath,clownMessage } from './utils.js';
 import { poolResources } from './resourcesManager.js';
 import {getStaticData} from './resourcesManager.js'
 import { createTray } from './createTray.js';
@@ -9,6 +9,8 @@ import { createMenu } from './menu.js';
 
 app.on('ready',()=>{
     const mainWindow = new BrowserWindow({
+        width: 1400,
+        height: 1200,
         webPreferences:{
             preload:getPreload()
         }
@@ -18,9 +20,12 @@ app.on('ready',()=>{
     }else{
         mainWindow.loadFile(getUIPath());
     }
-    poolResources(mainWindow);
+    //poolResources(mainWindow);
     ipcMainHandle('getStaticData',()=> {
         return getStaticData();
+    });
+    ipcMainHandle('getClownMessage',()=>{
+        return clownMessage();
     });
     createTray(mainWindow);
     handleCloseEvents(mainWindow);

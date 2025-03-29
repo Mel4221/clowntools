@@ -102,7 +102,8 @@ electron.contextBridge.exposeInMainWorld('electron',
         });
     },
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
-}satisfies Window['electron']);
+    getClownMessage:()=>ipcInvoke('getClownMessage')
+  }satisfies Window['electron']);
 
 
 function ipcInvoke<Key extends keyof EventPayloadMaping>(
