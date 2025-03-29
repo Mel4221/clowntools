@@ -27,21 +27,12 @@ interface Window {
     };
   }
 
-function Test()
-{
-    /*
-    window.electronAPI.runCommand('ls')
-    .then((output) => console.log(output))
-    .catch((error) => console.error(error));
-    */
-}
+ 
 
 const ToolsDisplay: React.FC<ToolsType> = ({ Tool }) => {
     return (
         <Col style={{ height: '80vh' }}>
-            <Col>
-                <Button onClick={()=>{Test()}}>Run</Button>
-            </Col>
+             
             <Container fluid className="h-100 d-flex flex-column p-0 m-0 flex-grow-1 overflow-hidden">
                 {Tool ? (
                     <Tool />

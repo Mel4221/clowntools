@@ -18,7 +18,8 @@ import { Download } from 'react-bootstrap-icons';
 
 
 function YouZ() {
-    const[imgUrl,setImageUrl] = useState("/img.jpg");
+    const[ImgUrl,setImgUrl] = useState("/img.jpg");
+    const[SearchBarText,setSearchBarText] = useState("");
 
     useEffect(() => {
         const fetchClownMessage = async () => {
@@ -54,7 +55,32 @@ function YouZ() {
                                 type="text" 
                                 placeholder="Search videos..." 
                                 className="rounded-pill"
+                                value={SearchBarText}
+                                onChange={(e)=>{
+                                    setSearchBarText(e.target.value||'');
+                                }}
+                                onKeyDown={(e)=>{
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault(); // Prevent form submission if inside <form>
+                                        //handleSearch();    // Your search function
+                                    }
+                                }}
                             />
+                                                                    <div className="p-2">
+                                            <small className="text-white d-block mb-1">
+                                               Searching... {/* Add your message here */}
+                                            </small>
+                                            <div className="progress bg-dark bg-opacity-25" style={{ height: '8px' }}>
+                                                <div 
+                                                    className="progress-bar bg-white" 
+                                                    role="progressbar" 
+                                                    style={{ width: '80%' }} 
+                                                    aria-valuenow={50} 
+                                                    aria-valuemin={0} 
+                                                    aria-valuemax={100}
+                                                ></div>
+                                            </div>
+                                        </div>
                         </Form>
                     </Col>
                 </Row>
@@ -69,7 +95,7 @@ function YouZ() {
                                     <Card className="h-100 shadow-sm bg-black text-white">
                                         <Card.Img 
                                             variant="top" 
-                                            src={imgUrl}
+                                            src={ImgUrl}
                                             style={{ 
                                                 height: '200px', 
                                                 objectFit: 'cover' 

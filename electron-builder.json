@@ -3,7 +3,8 @@
     "files":["dist-electron","dist-react"],
     "extraResources":[
     "dist-electron/preload.cjs",
-    "src/ui/assets/**"
+    "src/ui/assets/**",
+    "public/**"
     ],
     "icon": "src/ui/assets/setting.png",
     "mac":{
