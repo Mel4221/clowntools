@@ -6,7 +6,8 @@ import { poolResources } from './resourcesManager.js';
 import {getStaticData} from './resourcesManager.js'
 import { createTray } from './createTray.js';
 import { createMenu } from './menu.js';
-
+import {callProgram } from './youz.js'
+ 
 app.on('ready',()=>{
     const mainWindow = new BrowserWindow({
         width: 1400,
@@ -20,13 +21,22 @@ app.on('ready',()=>{
     }else{
         mainWindow.loadFile(getUIPath());
     }
+    
+    ipcMain.handle('sendData', (event, data: string) => {
+        callProgram("echo",data);
+        // Add your logic here
+    });
     //poolResources(mainWindow);
     ipcMainHandle('getStaticData',()=> {
         return getStaticData();
     });
     ipcMainHandle('getClownMessage',()=>{
+        //console.log(data);
         return clownMessage();
     });
+
+   
+    
     createTray(mainWindow);
     handleCloseEvents(mainWindow);
     createMenu(mainWindow);

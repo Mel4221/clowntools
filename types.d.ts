@@ -17,6 +17,7 @@ type EventPayloadMaping =
     statistics: Statistics;
     getStaticData: StaticData;
     getClownMessage:ClownMessage;
+    sendData:(data:string)=>void;
 
 }
 type UnsubscribeFunction = ()=>void;
@@ -25,5 +26,6 @@ interface Window{
         subscribeStatistics:(callback: (statistics:Statistics)=>void)=>UnsubscribeFunction; 
         getStaticData:()=>Promise<StaticData>;
         getClownMessage:(request)=>Promise<ClownMessage>;
+        sendData:(data)=>void;
     }
 }

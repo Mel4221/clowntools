@@ -11,9 +11,11 @@ export function isDev(): boolean
 
 export function ipcMainHandle<Key extends keyof EventPayloadMaping>(
     key:Key,
-    handle:()=>EventPayloadMaping[Key]
-){
-    ipcMain.handle(key,(event)=>{
+    handle:(data?:string)=>EventPayloadMaping[Key]
+){            
+     
+    ipcMain.handle(key,(event, data?:string)=>{
+        
         // @ts-ignore
         validateEventFrame(event.senderFrame);
         return handle();

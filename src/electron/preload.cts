@@ -10,15 +10,17 @@ electron.contextBridge.exposeInMainWorld('electron',
         });
     },
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
-    getClownMessage:()=>ipcInvoke('getClownMessage')
+    getClownMessage:(data)=>ipcInvoke('getClownMessage'),
+    sendData:(data:string)=>ipcInvoke('sendData',data)
   }satisfies Window['electron']);
 
 
 function ipcInvoke<Key extends keyof EventPayloadMaping>(
-  key:Key
+  key:Key,
+  data?:string
 ):Promise<EventPayloadMaping[Key]>
 {
-  return electron.ipcRenderer.invoke(key);
+  return electron.ipcRenderer.invoke(key,data);
 }
 
 function ipcOn<Key extends keyof EventPayloadMaping>(
