@@ -10,12 +10,20 @@ electron.contextBridge.exposeInMainWorld('electron',
           callback(data);
         });
     },
+    exchange:(callback)=>
+      {
+          //electron.ipcRenderer.on('statistics',(event,data)=>{
+          return  ipcOn('exchange',(data:any)=>{
+            callback(data);
+          });
+      },
+
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
     getClownMessage:(data)=>ipcInvoke('getClownMessage'),
     sendData:(data:string)=>ipcInvoke('sendData',data),
     sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
-    exchange:(obj:any)=>ipcInvoke('exchange',obj)
+    //exchange:()=>ipcInvoke('exchange')//electron.ipcRenderer.invoke('getStaticData'),
   }satisfies Window['electron']);
 
 

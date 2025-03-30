@@ -12,7 +12,11 @@ type StaticData =
     cpu_model: string;
     ram_usage: number; 
 }
-
+type Exchange = 
+{
+    type:string;
+    message:any;
+}
 type EventPayloadMaping = 
 {
     statistics: Statistics;
@@ -21,7 +25,7 @@ type EventPayloadMaping =
     sendData:(data:string)=>void;
     searchVideo:string;
     sendObj:(obj:any)=>void;
-    exchange:any;
+    exchange:Exchange;
 
 }
 type UnsubscribeFunction = ()=>void;
@@ -36,7 +40,7 @@ interface Window{
         sendData:(data)=>void;
         sendObj:(obj)=>void;
 
-        exchange:(callback: (obj:any)=>void)=>Promise<string> | UnsubscribeFunction;
+        exchange:(callback: (statistics:Exchange)=>void)=>UnsubscribeFunction; 
 
 
         searchVideo: (
