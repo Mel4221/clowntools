@@ -1,5 +1,6 @@
 import electron = require('electron');
 
+
 electron.contextBridge.exposeInMainWorld('electron',
 {
     subscribeStatistics:(callback)=>
@@ -11,7 +12,8 @@ electron.contextBridge.exposeInMainWorld('electron',
     },
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
     getClownMessage:(data)=>ipcInvoke('getClownMessage'),
-    sendData:(data:string)=>ipcInvoke('sendData',data)
+    sendData:(data:string)=>ipcInvoke('sendData',data),
+    searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
   }satisfies Window['electron']);
 
 

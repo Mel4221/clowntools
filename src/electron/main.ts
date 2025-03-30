@@ -1,12 +1,13 @@
 import {app,BrowserView, BrowserWindow, ipcMain,Tray} from 'electron';
 import getPreload from './getPreload.js';
-import path from 'path';
+import path, { resolve } from 'path';
 import { isDev ,ipcMainHandle, getUIPath, getAssetPath,clownMessage } from './utils.js';
 import { poolResources } from './resourcesManager.js';
 import {getStaticData} from './resourcesManager.js'
 import { createTray } from './createTray.js';
 import { createMenu } from './menu.js';
 import {callProgram } from './youz_api/youz.js'
+import { searchVideo } from './youz_api/searchVideo.js';
  
 app.on('ready',()=>{
     const mainWindow = new BrowserWindow({
@@ -26,6 +27,12 @@ app.on('ready',()=>{
         callProgram("echo",data);
         // Add your logic here
     });
+  /*
+    ipcMain.handle('searchVideo',(data)=>{
+        return resolve(searchVideo("3",data,));
+    });
+*/
+
     //poolResources(mainWindow);
     ipcMainHandle('getStaticData',()=> {
         return getStaticData();
@@ -34,7 +41,7 @@ app.on('ready',()=>{
         //console.log(data);
         return clownMessage();
     });
-
+    
    
     
     createTray(mainWindow);

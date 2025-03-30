@@ -18,14 +18,20 @@ type EventPayloadMaping =
     getStaticData: StaticData;
     getClownMessage:ClownMessage;
     sendData:(data:string)=>void;
+    searchVideo:string;
 
 }
 type UnsubscribeFunction = ()=>void;
 interface Window{
     electron:{
         subscribeStatistics:(callback: (statistics:Statistics)=>void)=>UnsubscribeFunction; 
-        getStaticData:()=>Promise<StaticData>;
+        getStaticData:()=>Promise<StaticData>;    
+
+        // Costum types for the clowntools so they don't belong
+        // to the template  
         getClownMessage:(request)=>Promise<ClownMessage>;
         sendData:(data)=>void;
+        searchVideo:(searchNumber: string, searchInfo: string,id?:string)=>Promise<string>;
+
     }
 }
