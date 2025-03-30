@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { promises as fs } from 'fs';
 import path from 'path';
+import {ipcWebContentSend } from '../utils.js'
 
 export function searchVideo(searchNumber: string, searchInfo: string,id?:string): Promise<string>
 {
@@ -23,6 +24,7 @@ export function searchVideo(searchNumber: string, searchInfo: string,id?:string)
                 await fs.rm(filePath);
 
                 // Resolve the promise with the JSON string
+                //ipcWebContentSend('')
                 resolve(data);
             } catch (fileError) {
                 throw (Error("Something went wrong while searching for the video"))

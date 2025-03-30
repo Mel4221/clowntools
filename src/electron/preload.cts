@@ -15,6 +15,7 @@ electron.contextBridge.exposeInMainWorld('electron',
     sendData:(data:string)=>ipcInvoke('sendData',data),
     sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
+    exchange:(obj:any)=>ipcInvoke('exchange',obj)
   }satisfies Window['electron']);
 
 

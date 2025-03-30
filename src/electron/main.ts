@@ -1,7 +1,7 @@
-import {app,BrowserView, BrowserWindow, ipcMain,Tray} from 'electron';
+import {app,BrowserView, BrowserWindow, ipcMain,Tray, webContents} from 'electron';
 import getPreload from './getPreload.js';
 import path, { resolve } from 'path';
-import { isDev ,ipcMainHandle, getUIPath, getAssetPath,clownMessage } from './utils.js';
+import { isDev ,ipcMainHandle, getUIPath, getAssetPath,clownMessage, ipcWebContentSend } from './utils.js';
 import { poolResources } from './resourcesManager.js';
 import {getStaticData} from './resourcesManager.js'
 import { createTray } from './createTray.js';
@@ -22,7 +22,15 @@ app.on('ready',()=>{
     }else{
         mainWindow.loadFile(getUIPath());
     }
-    
+    ipcMain.handle('exchange', (event, data: string) => {
+        
+        console.log({Type:"Working...",Request:data});
+        mainWindow.webContents.send('exchange',);
+
+        return {Type:"Working...",Request:data};
+        //callProgram("echo",data);
+        // Add your logic here
+    });
     ipcMain.handle('sendData', (event, data: string) => {
         callProgram("echo",data);
         // Add your logic here
@@ -36,7 +44,8 @@ app.on('ready',()=>{
 
  
     ipcMain.handle('searchVideo',()=>{
-        return resolve("Testing this bullshit");
+        mainWindow.webContents.send('searchVideo',"testing this bullshit");
+        return resolve("");
         
     }); 
     
