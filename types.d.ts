@@ -12,6 +12,7 @@ type StaticData =
     cpu_model: string;
     ram_usage: number; 
 }
+
 type EventPayloadMaping = 
 {
     statistics: Statistics;
@@ -19,6 +20,7 @@ type EventPayloadMaping =
     getClownMessage:ClownMessage;
     sendData:(data:string)=>void;
     searchVideo:string;
+    sendObj:(obj:any)=>void;
 
 }
 type UnsubscribeFunction = ()=>void;
@@ -30,8 +32,18 @@ interface Window{
         // Costum types for the clowntools so they don't belong
         // to the template  
         getClownMessage:(request)=>Promise<ClownMessage>;
+
         sendData:(data)=>void;
-        searchVideo:(searchNumber: string, searchInfo: string,id?:string)=>Promise<string>;
+        sendObj:(obj)=>void;
+
+
+        searchVideo: (
+            searchNumber: string, 
+            searchInfo: string, 
+            id?: string, 
+            callback: (statistics: Statistics) => void
+        ) => Promise<string> | UnsubscribeFunction;
+
 
     }
 }

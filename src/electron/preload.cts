@@ -13,6 +13,7 @@ electron.contextBridge.exposeInMainWorld('electron',
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
     getClownMessage:(data)=>ipcInvoke('getClownMessage'),
     sendData:(data:string)=>ipcInvoke('sendData',data),
+    sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
   }satisfies Window['electron']);
 

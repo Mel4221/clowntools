@@ -27,11 +27,20 @@ app.on('ready',()=>{
         callProgram("echo",data);
         // Add your logic here
     });
-  /*
-    ipcMain.handle('searchVideo',(data)=>{
-        return resolve(searchVideo("3",data,));
+    ipcMain.handle('sendObj', (event, data: any) => {
+        console.log(data);
+        callProgram("echo",data);
+        //callProgram("echo",data);
+        // Add your logic here
     });
-*/
+
+ 
+    ipcMain.handle('searchVideo',()=>{
+        return resolve("Testing this bullshit");
+        
+    }); 
+    
+ 
 
     //poolResources(mainWindow);
     ipcMainHandle('getStaticData',()=> {
