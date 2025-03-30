@@ -64,8 +64,7 @@ function YouZ() {
                     <Col>
                         <SearchBar 
                         text={SearchBarText} 
-                        onSearch={()=>{}}
-                        setSearchText={()=>{}}/>
+                        setText={setSearchBarText}/>
                     </Col>
                 </Row>
 

@@ -1,5 +1,5 @@
 
-import { useEffect, useState  } from 'react'
+import { createContext, useEffect, useState  } from 'react'
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -17,15 +17,44 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
+import { SProgressBar } from './SProgressBar';
 
 export interface SearchBarProps {
     text: string;
-    setSearchText: (text: string) => void;
-    onSearch: () => void;
+    setText: (text: string) => void;
 }
+
+
+export interface SearchState {
+    active: boolean;
+}
+// Create a context with a default value
+const defaultSearchState: SearchState = { active: false };
+const SearchContext = createContext<SearchState>(defaultSearchState);
 
 export function SearchBar(searchBar:SearchBarProps)
 {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [progress, setProgress] = useState<number>(0);
+    const [searchInfo,setSearchInfo] = useState("");
+    
+    const longRunningFunction = async (): Promise<string> => {
+        // Simulate a long-running operation (e.g., fetching data)
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve("Operation completed!");
+            setLoading(false);
+          }, 60000); // 60 seconds
+        });
+      };
+    
+   
+
+
+
+
+
+      
     return(
         <Form>
         <Form.Control 
@@ -34,30 +63,36 @@ export function SearchBar(searchBar:SearchBarProps)
             className="rounded-pill"
             value={searchBar.text}
             onChange={(e)=>{
-                //setSearchBarText(e.target.value||'');
+                searchBar.setText(e.target.value||'');
             }}
-            onKeyDown={(e)=>{
+            onKeyDown={async (e)=>{
                 if (e.key === 'Enter') {
                     e.preventDefault(); // Prevent form submission if inside <form>
                     //handleSearch();    // Your search function
+                    console.log(searchBar.text);
+                    setLoading(true);
+                    const interval = setInterval(()=>{
+                        setProgress((prev) => (prev >= 100 ? 0 : prev + 10)); // Increment progress
+                        if(!loading){
+                            clearInterval(interval);
+                        }
+                    },600);
+                    try{
+                    const result = await longRunningFunction();
+                    clearInterval(interval);
+
+                    }catch{
+                    console.log("Error while searching video...")
+                        clearInterval(interval);
+                    }
+                    //setResult(result);
                 }
             }}
         />
-                    <div className="p-2">
-                        <small className="text-white d-block mb-1">
-                           Searching... {/* Add your message here */}
-                        </small>
-                        <div className="progress bg-dark bg-opacity-25" style={{ height: '8px' }}>
-                            <div 
-                                className="progress-bar bg-white" 
-                                role="progressbar" 
-                                style={{ width: '80%' }} 
-                                aria-valuenow={50} 
-                                aria-valuemin={0} 
-                                aria-valuemax={100}
-                            ></div>
-                        </div>
-                    </div>
+            <SProgressBar
+                progress={progress}
+                info={searchInfo}
+            />
     </Form>
     )
 }

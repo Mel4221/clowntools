@@ -46,7 +46,7 @@ export function VideoCard(videoCard:VideoCardProps)
                                                 Video Title {item}
                                             </Card.Title>
                                             <Card.Text className="text-white small">
-                                                This is a detailed description of the video content that might wrap to multiple lines...
+                                                  This is a detailed description of the video content that might wrap to multiple lines...
                                             </Card.Text>
                                             <div className="d-flex gap-2">
                                                 <Button variant="secondary" size="sm">
