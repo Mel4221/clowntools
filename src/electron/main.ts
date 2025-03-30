@@ -6,7 +6,7 @@ import { poolResources } from './resourcesManager.js';
 import {getStaticData} from './resourcesManager.js'
 import { createTray } from './createTray.js';
 import { createMenu } from './menu.js';
-import {callProgram } from './youz.js'
+import {callProgram } from './youz_api/youz.js'
  
 app.on('ready',()=>{
     const mainWindow = new BrowserWindow({
