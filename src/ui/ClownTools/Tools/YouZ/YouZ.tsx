@@ -16,6 +16,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
+import { SearchBar } from './SearchBar';
+import { VideoCard } from './VideoCard';
 
  
 function YouZ() {
@@ -60,105 +62,21 @@ function YouZ() {
          <>
                 <Row className="p-3">
                     <Col>
-                        <Form>
-                            <Form.Control 
-                                type="text" 
-                                placeholder="Search videos..." 
-                                className="rounded-pill"
-                                value={SearchBarText}
-                                onChange={(e)=>{
-                                    setSearchBarText(e.target.value||'');
-                                }}
-                                onKeyDown={(e)=>{
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault(); // Prevent form submission if inside <form>
-                                        //handleSearch();    // Your search function
-                                    }
-                                }}
-                            />
-                                        <div className="p-2">
-                                            <small className="text-white d-block mb-1">
-                                               Searching... {/* Add your message here */}
-                                            </small>
-                                            <div className="progress bg-dark bg-opacity-25" style={{ height: '8px' }}>
-                                                <div 
-                                                    className="progress-bar bg-white" 
-                                                    role="progressbar" 
-                                                    style={{ width: '80%' }} 
-                                                    aria-valuenow={50} 
-                                                    aria-valuemin={0} 
-                                                    aria-valuemax={100}
-                                                ></div>
-                                            </div>
-                                        </div>
-                        </Form>
+                        <SearchBar 
+                        text={SearchBarText} 
+                        onSearch={()=>{}}
+                        setSearchText={()=>{}}/>
                     </Col>
                 </Row>
 
                 {/* Scrollable Video Grid */}
                 <Row className="flex-grow-1 overflow-auto m-0 p-3">
                     <Col>
-                        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                            {/* Video Items - Use map in real application */}
-                            {[1,2,3,4].map((item) => (
-                                
-                                <Col key={item}>
-                                    <Card className="h-100 shadow-sm bg-black text-white">
-                                        <Card.Img 
-                                            variant="top" 
-                                            src={ImgUrl}
-                                            style={{ 
-                                                height: '200px', 
-                                                objectFit: 'cover'
-                                            }}
-                                        />
-                                        <Card.Body>
-                                            <Card.Title className="text-truncate">
-                                                Video Title {item}
-                                            </Card.Title>
-                                            <Card.Text className="text-white small">
-                                                This is a detailed description of the video content that might wrap to multiple lines...
-                                            </Card.Text>
-                                            <div className="d-flex gap-2">
-                                                <Button variant="secondary" size="sm">
-                                                    Song
-                                                    <Download className="text-white ms-2" size={24} />
-                                                </Button>
-                                                <Dropdown onSelect={handleSelect}>
-                                                    <Dropdown.Toggle as={Button} variant="secondary" size="sm">
-                                                        {VideoResolution}
-                                                        <Download className="text-white ms-2" size={24} />
-                                                    </Dropdown.Toggle>
-
-                                                    <Dropdown.Menu>
-                                                        <Dropdown.Item href="1080p" as="button">1080p</Dropdown.Item>
-                                                        <Dropdown.Item href="720p" as="button">720p</Dropdown.Item>
-                                                        <Dropdown.Item href="480p" as="button">480p</Dropdown.Item>
-                                                        <Dropdown.Item href="360p" as="button">360p</Dropdown.Item>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </div>
-                                        </Card.Body>
-                                        {/* Progress Bar */}
-                                        <div className="p-2">
-                                            <small className="text-white d-block mb-1">
-                                                Downloading... {/* Add your message here */}
-                                            </small>
-                                            <div className="progress bg-dark bg-opacity-25" style={{ height: '8px' }}>
-                                                <div 
-                                                    className="progress-bar bg-white" 
-                                                    role="progressbar" 
-                                                    style={{ width: '50%' }} 
-                                                    aria-valuenow={50} 
-                                                    aria-valuemin={0} 
-                                                    aria-valuemax={100}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                </Col>
-                            ))}
-                        </Row>
+                        <VideoCard
+                         url={ImgUrl}
+                         onSelect={()=>{}}
+                         resolution='Video'
+                        />
                     </Col>
                 </Row>
             </>
