@@ -13,14 +13,17 @@ import  Col  from 'react-bootstrap/Col';
 import  Nav  from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Label from 'react-bootstrap/FormLabel'
+import Label from 'react-bootstrap/FormLabel';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 
-
+ 
 function YouZ() {
-    const[ImgUrl,setImgUrl] = useState("/img.jpg");
-    const[SearchBarText,setSearchBarText] = useState("");
+    const[ImgUrl,setImgUrl] = useState<string>("/img.jpg");
+    const[SearchBarText,setSearchBarText] = useState<string>("");
+    const[VideoResolution,setVideoResolution] = useState<string>("Video");
 
+    
     useEffect(() => {
         const fetchClownMessage = async () => {
           try {
@@ -46,6 +49,13 @@ function YouZ() {
         };
       }, []);
 
+      const handleSelect = (resolution: string | null) => {
+        if (resolution) {
+            setVideoResolution(resolution);
+            //console.log('Selected resolution:', resolution); // You can handle the selected resolution here
+        }
+    };
+
     return (
          <>
                 <Row className="p-3">
@@ -66,7 +76,7 @@ function YouZ() {
                                     }
                                 }}
                             />
-                                                                    <div className="p-2">
+                                        <div className="p-2">
                                             <small className="text-white d-block mb-1">
                                                Searching... {/* Add your message here */}
                                             </small>
@@ -90,7 +100,8 @@ function YouZ() {
                     <Col>
                         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                             {/* Video Items - Use map in real application */}
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14].map((item) => (
+                            {[1,2,3,4].map((item) => (
+                                
                                 <Col key={item}>
                                     <Card className="h-100 shadow-sm bg-black text-white">
                                         <Card.Img 
@@ -98,7 +109,7 @@ function YouZ() {
                                             src={ImgUrl}
                                             style={{ 
                                                 height: '200px', 
-                                                objectFit: 'cover' 
+                                                objectFit: 'cover'
                                             }}
                                         />
                                         <Card.Body>
@@ -113,10 +124,19 @@ function YouZ() {
                                                     Song
                                                     <Download className="text-white ms-2" size={24} />
                                                 </Button>
-                                                <Button variant="secondary" size="sm">
-                                                    Video
-                                                    <Download className="text-white ms-2" size={24} />
-                                                </Button>
+                                                <Dropdown onSelect={handleSelect}>
+                                                    <Dropdown.Toggle as={Button} variant="secondary" size="sm">
+                                                        {VideoResolution}
+                                                        <Download className="text-white ms-2" size={24} />
+                                                    </Dropdown.Toggle>
+
+                                                    <Dropdown.Menu>
+                                                        <Dropdown.Item href="1080p" as="button">1080p</Dropdown.Item>
+                                                        <Dropdown.Item href="720p" as="button">720p</Dropdown.Item>
+                                                        <Dropdown.Item href="480p" as="button">480p</Dropdown.Item>
+                                                        <Dropdown.Item href="360p" as="button">360p</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
                                             </div>
                                         </Card.Body>
                                         {/* Progress Bar */}
