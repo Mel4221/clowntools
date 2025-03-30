@@ -3,7 +3,7 @@ import fs from  'fs';
 import { getDownloadProgress } from './getDownloadProgress.js';
 
 
-export function downloadVideo(url:string):void
+export function downloadVideo(url:string,id?:string):void
 {
     const ytdlp = spawn('yt-dlp', [
         url,
@@ -12,7 +12,11 @@ export function downloadVideo(url:string):void
       ]);
 
     // Create a write stream to log output (optional)
-    const logStream = fs.createWriteStream('download_log.txt', { flags: 'a' });
+    if(id === undefined||
+        id === null){
+            id = "video"
+    }
+    const logStream = fs.createWriteStream(`${id}_download.log`, { flags: 'a' });
 
 // Read stdout/stderr in real time
 ytdlp.stdout.on('data', (data) => {
