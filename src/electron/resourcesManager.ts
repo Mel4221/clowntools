@@ -6,6 +6,7 @@ import {ipcWebContentSend}from './utils.js'
 const POOL_INTERVAL = 500; 
 export function poolResources(mainWindow: BrowserWindow)
 {
+    /*
     setInterval(async ()=>{
     const cpu_usage = await getCpuUsage();
     const ram_usage = getRamUsage();
@@ -16,7 +17,9 @@ export function poolResources(mainWindow: BrowserWindow)
      });
         console.log({cpu_usage,ram_usage});
     },POOL_INTERVAL);
+    */
 }
+
 
 export function getStaticData()
 {

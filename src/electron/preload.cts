@@ -3,6 +3,7 @@ import electron = require('electron');
 
 electron.contextBridge.exposeInMainWorld('electron',
 {
+  /*
     subscribeStatistics:(callback)=>
     {
         //electron.ipcRenderer.on('statistics',(event,data)=>{
@@ -23,9 +24,9 @@ electron.contextBridge.exposeInMainWorld('electron',
     sendData:(data:string)=>ipcInvoke('sendData',data),
     sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
-    
-    pass:(obj:any)=>{
-      return electron.ipcRenderer.invoke('pass',obj);
+    */
+    clownTalk:(obj:any)=>{
+      return electron.ipcRenderer.invoke('clownTalk',obj);
     },
     //exchange:()=>ipcInvoke('exchange')//electron.ipcRenderer.invoke('getStaticData'),
   }satisfies Window['electron']);

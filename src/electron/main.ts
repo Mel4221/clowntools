@@ -39,7 +39,7 @@ app.on('ready', () => {
     });
     */
 
-    ipcMainHandle('pass', async (data?: any) => {
+    ipcMainHandle('clownTalk', async (data?: any) => {
         console.log(data);
         // Directly return the object, no need to create a new Promise
         return new Promise<any>((resolve)=>{
@@ -58,24 +58,30 @@ app.on('ready', () => {
     */
 
 
-
+    /*
     ipcMain.handle('sendData', (event, data: string) => {
         //cipcMainallProgram("echo", data);
         // Add your logic here
     });
+    */
+
+    /*
     ipcMain.handle('sendObj', (event, data: any) => {
         console.log(data);
         callProgram("echo", data);
         //callProgram("echo",data);
         // Add your logic here
     });
+    */
 
 
+    /*
     ipcMain.handle('searchVideo', () => {
         mainWindow.webContents.send('searchVideo', "testing this bullshit");
         return resolve("");
 
     });
+    */
 
     //mainWindow.webContents.send("exchange",{Test:"Working..."});
     
