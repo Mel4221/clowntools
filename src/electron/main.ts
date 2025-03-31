@@ -22,6 +22,7 @@ app.on('ready', () => {
     } else {
         mainWindow.loadFile(getUIPath());
     }
+    /*
     ipcMain.handle('exchange', (event, data) => {
 
         console.log("working...", { Type: "Working...", Request: data });
@@ -31,6 +32,7 @@ app.on('ready', () => {
         //callProgram("echo",data);
         // Add your logic here
     });
+    */
     ipcMain.handle('sendData', (event, data: string) => {
         callProgram("echo", data);
         // Add your logic here
@@ -49,8 +51,8 @@ app.on('ready', () => {
 
     });
 
-
-
+    //mainWindow.webContents.send("exchange",{Test:"Working..."});
+    
     //poolResources(mainWindow);
     ipcMainHandle('getStaticData', () => {
         return getStaticData();
