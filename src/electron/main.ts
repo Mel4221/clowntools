@@ -13,6 +13,7 @@ app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: 1400,
         height: 1200,
+        backgroundColor: 'black',
         webPreferences: {
             preload: getPreload()
         }
@@ -33,6 +34,13 @@ app.on('ready', () => {
         // Add your logic here
     });
     */
+
+    ipcMain.handle('pass', (event, data:any) => {
+        console.log(data);
+       return new Promise((resolve)=>{
+            resolve({Test:'Received!!!!'});
+       });
+    });
     ipcMain.handle('sendData', (event, data: string) => {
         callProgram("echo", data);
         // Add your logic here
@@ -57,8 +65,9 @@ app.on('ready', () => {
     ipcMainHandle('getStaticData', () => {
         return getStaticData();
     });
-    ipcMainHandle('getClownMessage', () => {
+    ipcMainHandle('getClownMessage', (data) => {
         //console.log(data);
+        console.log(data);
         return clownMessage();
     });
 

@@ -19,10 +19,14 @@ electron.contextBridge.exposeInMainWorld('electron',
       },
 
     getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
-    getClownMessage:(data)=>ipcInvoke('getClownMessage'),
+    getClownMessage:(data)=>ipcInvoke('getClownMessage',data),
     sendData:(data:string)=>ipcInvoke('sendData',data),
     sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
+    
+    pass:(obj:any)=>{
+      return electron.ipcRenderer.invoke('pass',obj);
+    },
     //exchange:()=>ipcInvoke('exchange')//electron.ipcRenderer.invoke('getStaticData'),
   }satisfies Window['electron']);
 

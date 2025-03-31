@@ -26,12 +26,14 @@ type EventPayloadMaping =
     searchVideo:string;
     sendObj:(obj:any)=>void;
     exchange:Exchange;
+    pass:(obj:any)=>any;
 
 }
 type UnsubscribeFunction = ()=>void;
 interface Window{
     electron:{
         subscribeStatistics:(callback: (statistics:Statistics)=>void)=>UnsubscribeFunction; 
+        
         getStaticData:()=>Promise<StaticData>;    
         // Costum types for the clowntools so they don't belong
         // to the template  
@@ -42,6 +44,7 @@ interface Window{
 
         exchange:(callback: (statistics:Exchange)=>void)=>UnsubscribeFunction; 
 
+        pass:(obj:any)=>any;
 
         searchVideo: (
             searchNumber: string, 
