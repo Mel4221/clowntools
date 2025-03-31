@@ -28,7 +28,7 @@ type EventPayloadMaping =
     sendObj:(obj:any)=>void;
     exchange:Exchange;
     */
-    clownTalk:(obj:any)=>any;
+    share:(obj:any)=>any;
 
 }
 type UnsubscribeFunction = ()=>void;
@@ -46,7 +46,7 @@ interface Window{
 
         // exchange:(callback: (statistics:Exchange)=>void)=>UnsubscribeFunction; 
 
-        clownTalk:(obj:any)=>any;
+        share:(obj:any)=>any;
       
 
     }

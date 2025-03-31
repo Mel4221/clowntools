@@ -10,7 +10,7 @@ import { callProgram } from './youz_api/youz.js'
 import { searchVideo } from './youz_api/searchVideo.js';
 import { json } from 'stream/consumers';
 import { Receipt } from 'react-bootstrap-icons';
-
+import { processTalk } from './clownTalkHandle.js';
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: 1400,
@@ -39,11 +39,11 @@ app.on('ready', () => {
     });
     */
 
-    ipcMainHandle('clownTalk', async (data?: any) => {
+    ipcMainHandle('share', async (data?: any) => {
         console.log(data);
         // Directly return the object, no need to create a new Promise
-        return new Promise<any>((resolve)=>{
-            resolve({Test:"Working...",Received:data});
+        return new Promise<any>(async (resolve)=>{
+            resolve(await processTalk(data));
             //return {Test:"Working",Received:data};
         });// Return the expected object directly
     });

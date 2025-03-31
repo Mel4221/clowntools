@@ -25,8 +25,8 @@ electron.contextBridge.exposeInMainWorld('electron',
     sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
     searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
     */
-    clownTalk:(obj:any)=>{
-      return electron.ipcRenderer.invoke('clownTalk',obj);
+    share:(obj:any)=>{
+      return electron.ipcRenderer.invoke('share',obj);
     },
     //exchange:()=>ipcInvoke('exchange')//electron.ipcRenderer.invoke('getStaticData'),
   }satisfies Window['electron']);

@@ -30,7 +30,7 @@ function YouZ() {
         const fetchClownMessage = async () => {
           try {
             // @ts-ignore
-            const message = await electron.getClownMessage();
+            const message = await electron.share({State:"working..."});
             const img = `${message.type}/img.jpg`;
             //setImageUrl(img);
 
