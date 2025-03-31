@@ -18,6 +18,7 @@ import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 import { SProgressBar } from './SProgressBar';
+import { randomId } from '../utils/utils';
 
 export interface SearchBarProps {
     text: string;
@@ -67,8 +68,24 @@ export function SearchBar(searchBar:SearchBarProps)
             }}
             onKeyDown={async (e)=>{
                 if (e.key === 'Enter') {
+                    
                     e.preventDefault(); // Prevent form submission if inside <form>
+                    // @ts-ignore
+                    let result = await electron.share(
+                    {
+                        type:'search-video',
+                        query:'yo soy tu gominola',
+                        query_id:'test'
+                        /*
+                        type:'search-video',
+                        query:searchBar.text,
+                        query_id:randomId()
+                        */
+
+                    });
+                    console.log(result);
                     //handleSearch();    // Your search function
+                    /*
                     console.log(searchBar.text);
                     setLoading(true);
                     const interval = setInterval(()=>{
@@ -86,6 +103,7 @@ export function SearchBar(searchBar:SearchBarProps)
                         clearInterval(interval);
                     }
                     //setResult(result);
+                    */
                 }
             }}
         />

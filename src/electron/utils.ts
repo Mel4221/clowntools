@@ -1,7 +1,8 @@
 import { ipcMain, WebContents ,app,WebFrameMain} from "electron";
 import { url } from "inspector";
-import path from 'path'
+import path, { resolve } from 'path'
 import { pathToFileURL } from "url";
+import { promises as fs } from 'fs';
 
 
 export function isDev(): boolean
@@ -79,3 +80,14 @@ export function clownMessage():ClownMessage
 
 
  
+
+
+
+export async function readFile(filePath: string): Promise<string> {
+    try {
+        const data = await fs.readFile(filePath, 'utf-8');
+        return data;
+    } catch (err) {
+        throw new Error(`Error reading file: ${err}`);
+    }
+}
