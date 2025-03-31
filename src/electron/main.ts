@@ -8,6 +8,8 @@ import { createTray } from './createTray.js';
 import { createMenu } from './menu.js';
 import { callProgram } from './youz_api/youz.js'
 import { searchVideo } from './youz_api/searchVideo.js';
+import { json } from 'stream/consumers';
+import { Receipt } from 'react-bootstrap-icons';
 
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
@@ -15,6 +17,8 @@ app.on('ready', () => {
         height: 1200,
         backgroundColor: 'black',
         webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false, 
             preload: getPreload()
         }
     });
@@ -35,14 +39,28 @@ app.on('ready', () => {
     });
     */
 
-    ipcMain.handle('pass', (event, data:any) => {
+    ipcMainHandle('pass', async (data?: any) => {
+        console.log(data);
+        // Directly return the object, no need to create a new Promise
+        return new Promise<any>((resolve)=>{
+            resolve({Test:"Working...",Received:data});
+            //return {Test:"Working",Received:data};
+        });// Return the expected object directly
+    });
+
+    /*
+    ipcMain.handle('pass', (data?:any)=> {
         console.log(data);
        return new Promise((resolve)=>{
             resolve({Test:'Received!!!!'});
        });
     });
+    */
+
+
+
     ipcMain.handle('sendData', (event, data: string) => {
-        callProgram("echo", data);
+        //cipcMainallProgram("echo", data);
         // Add your logic here
     });
     ipcMain.handle('sendObj', (event, data: any) => {
@@ -62,14 +80,20 @@ app.on('ready', () => {
     //mainWindow.webContents.send("exchange",{Test:"Working..."});
     
     //poolResources(mainWindow);
+
+    /*
     ipcMainHandle('getStaticData', () => {
         return getStaticData();
     });
+    */
+
+    /*
     ipcMainHandle('getClownMessage', (data) => {
         //console.log(data);
         console.log(data);
         return clownMessage();
     });
+    */
 
 
 

@@ -10,17 +10,32 @@ export function isDev(): boolean
 }
 
 export function ipcMainHandle<Key extends keyof EventPayloadMaping>(
+    key: Key,
+    handle: (data?: any) => Promise<EventPayloadMaping[Key]> // Ensure the handle returns a Promise
+) {
+    ipcMain.handle(key, async (event, data?: any) => {
+        // @ts-ignore
+        validateEventFrame(event.senderFrame); // Validate the event frame
+
+        // Call the provided handle function with the received data
+        return handle(data); // Pass the data to the handle function
+    });
+}
+
+/*
+export function ipcMainHandle<Key extends keyof EventPayloadMaping>(
     key:Key,
-    handle:(data?:string)=>EventPayloadMaping[Key]
+    handle:(data?:string|any)=>EventPayloadMaping[Key]
 ){            
      
-    ipcMain.handle(key,(event, data?:string)=>{
+    ipcMain.handle(key,(event, data?:string|any)=>{
         
         // @ts-ignore
         validateEventFrame(event.senderFrame);
         return handle();
     });
 }
+*/
 
 export function ipcWebContentSend<Key extends keyof EventPayloadMaping>(
     key:Key,
