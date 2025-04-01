@@ -106,7 +106,7 @@ export async function sys_call(command: string): Promise<void> {
         console.warn('Command stderr:', stderr);
       }
       
-      console.log('Command output:', stdout);
+      //console.log('Command output:', stdout);
     } catch (error) {
       console.error('Command failed:', error);
       throw error; // Re-throw if you want calling code to handle it

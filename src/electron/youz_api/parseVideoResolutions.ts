@@ -18,7 +18,7 @@ export function parseVideoResolutions(formatString:string|any):Array<any>{
         if (line.includes('storyboard') || line.includes('audio only')) continue;
         
         formats.push({
-            format: width,
+            label: width,
             resolution: resolution
         });
     }
@@ -27,7 +27,7 @@ export function parseVideoResolutions(formatString:string|any):Array<any>{
     return (function(uniqueFormats) {
         const seen = new Set();
         return uniqueFormats.filter(item => {
-            const key = `${item.format}-${item.resolution}`;
+            const key = `${item.label}-${item.resolution}`;
             if (!seen.has(key)) {
                 seen.add(key);
                 return true;

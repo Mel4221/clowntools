@@ -1,4 +1,4 @@
-import { useEffect, useState  } from 'react'
+import { createContext, useEffect, useState  } from 'react'
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -19,37 +19,23 @@ import { Download } from 'react-bootstrap-icons';
 import { SearchBar } from './SearchBar';
 import { VideoCard } from './VideoCard';
 
- 
+
+function LoadResolutions()
+{
+
+}
+interface Buffer{
+    data:Array<any>;
+}
+
+
 function YouZ() {
     const[ImgUrl,setImgUrl] = useState<string>("/img.jpg");
     const[SearchBarText,setSearchBarText] = useState<string>("");
     const[VideoResolution,setVideoResolution] = useState<string>("Video");
-
+    const[SearchBuffer,setSearchBuffer] = useState<Array<any>>([{}]);
     
-    useEffect(() => {
-        const fetchClownMessage = async () => {
-          try {
-            // @ts-ignore
-            const message = await electron.share({State:"working..."});
-            const img = `${message.type}/img.jpg`;
-            //setImageUrl(img);
-
-
-            console.log(img);
-          } catch (error) {
-            console.error('Error fetching clown message:', error);
-          }
-        };
-      
-        fetchClownMessage();
-      
-        // If getClownMessage returns a cleanup function (like an unsubscribe),
-        // you'll need to handle it differently with async/await
-        return () => {
-          // If there's any cleanup needed, it would go here
-          // Note: You can't return the promise directly from useEffect cleanup
-        };
-      }, []);
+   
 
       const handleSelect = (resolution: string | null) => {
         if (resolution) {
@@ -64,7 +50,9 @@ function YouZ() {
                     <Col>
                         <SearchBar 
                         text={SearchBarText} 
-                        setText={setSearchBarText}/>
+                        setText={setSearchBarText}
+                        setSearchBuffer={setSearchBuffer}
+                        />
                     </Col>
                 </Row>
 
@@ -72,9 +60,7 @@ function YouZ() {
                 <Row className="flex-grow-1 overflow-auto m-0 p-3">
                     <Col>
                         <VideoCard
-                         url={ImgUrl}
-                         onSelect={()=>{}}
-                         resolution='Video'
+                         searchBuffer={SearchBuffer}
                         />
                     </Col>
                 </Row>

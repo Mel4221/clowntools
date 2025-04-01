@@ -4,6 +4,7 @@ import { stat } from "fs";
 import { resolve } from "path";
 import { searchVideo } from "./youz_api/searchVideo.js";
 import { sys_call } from "./utils.js";
+import { getVideoResolutions } from "./youz_api/getVideoResolutions.js";
 
 const invalid_method =
     {
@@ -37,6 +38,10 @@ export function processTalk(obj:any):Promise<any>
                 //sys_call(`echo working... ${obj.query}`)
                 //console.log(data.message);
                 break;
+            case 'get-resolution':
+                data.message = await getVideoResolutions(obj.query,obj.query_id);
+                //message.title
+                break;    
             case 'test':
                 data.message = {
                     state:'working...',

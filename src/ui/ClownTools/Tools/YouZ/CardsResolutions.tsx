@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState  } from 'react'
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,18 +18,17 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
-import { Cards } from './Cards';
+import { CardsPogressBar } from './CardsProgressBar';
 
-export interface VideoCardProps {   
-    searchBuffer:Array<any>;
-}
-export function VideoCard(card:VideoCardProps)
+
+export function CardsResolutions()
 {
     return(
-        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                <Cards
-                items={card.searchBuffer}
-                />
-        </Row>
-    );
+        <>
+            <Dropdown.Item href="1080p" as="button">1080p</Dropdown.Item>
+            <Dropdown.Item href="720p" as="button">720p</Dropdown.Item>
+            <Dropdown.Item href="480p" as="button">480p</Dropdown.Item>
+            <Dropdown.Item href="360p" as="button">360p</Dropdown.Item>
+        </>
+    )
 }

@@ -17,18 +17,31 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
-import { Cards } from './Cards';
+import { CardsPogressBar } from './CardsProgressBar';
+import { CardsResolutions } from './CardsResolutions';
+interface CardsButtonsProps
+{
 
-export interface VideoCardProps {   
-    searchBuffer:Array<any>;
 }
-export function VideoCard(card:VideoCardProps)
+
+export function CardsButtons(button:CardsButtonsProps)
 {
     return(
-        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                <Cards
-                items={card.searchBuffer}
-                />
-        </Row>
-    );
+        <div className="d-flex gap-2">
+        <Button variant="secondary" size="sm">
+            Song
+            <Download className="text-white ms-2" size={24} />
+        </Button>
+        <Dropdown onSelect={()=>{}}>
+            <Dropdown.Toggle as={Button} variant="secondary" size="sm">
+                {}
+                <Download className="text-white ms-2" size={24} />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+                <CardsResolutions/>
+            </Dropdown.Menu>
+        </Dropdown>
+    </div>
+    )
 }

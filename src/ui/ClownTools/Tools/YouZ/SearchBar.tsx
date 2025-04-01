@@ -23,11 +23,17 @@ import { randomId } from '../utils/utils';
 export interface SearchBarProps {
     text: string;
     setText: (text: string) => void;
+    setSearchBuffer:(buffer:Array<any>)=>void;
 }
 
 
 export interface SearchState {
     active: boolean;
+}
+
+function Search(key:any)
+{
+    
 }
 // Create a context with a default value
 const defaultSearchState: SearchState = { active: false };
@@ -36,28 +42,23 @@ const SearchContext = createContext<SearchState>(defaultSearchState);
 export function SearchBar(searchBar:SearchBarProps)
 {
     const [loading, setLoading] = useState<boolean>(false);
+    const [taskCount, setTaskCount] = useState<number>(0);
     const [progress, setProgress] = useState<number>(0);
-    const [searchInfo,setSearchInfo] = useState("");
-    
-    const longRunningFunction = async (): Promise<string> => {
-        // Simulate a long-running operation (e.g., fetching data)
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve("Operation completed!");
-            setLoading(false);
-          }, 60000); // 60 seconds
-        });
-      };
-    
-   
+    const [searchInfo,setSearchInfo] = useState<string>("");
+    const [item_ghost,setItemGhost] = useState<any>();
+    const max_task = 8;
 
+    let items =[{
 
-
-
+    }];   
+ 
+ 
 
       
     return(
+        
         <Form>
+           
         <Form.Control 
             type="text" 
             placeholder="Search videos..." 
@@ -70,39 +71,51 @@ export function SearchBar(searchBar:SearchBarProps)
                 if (e.key === 'Enter') {
                     
                     e.preventDefault(); // Prevent form submission if inside <form>
+                    setLoading(true);
+                    
                     // @ts-ignore
                     let result = await electron.share(
                     {
-                        /*
-                        type:'search-video',
-                        query:'yo soy tu gominola',
-                        query_id:'test'
-                        */
+                      
                         type:'search-video',
                         query:searchBar.text,
                         query_id:randomId()
                     });
-                    console.log(result);
-                    //handleSearch();    // Your search function
-                    /*
-                    console.log(searchBar.text);
-                    setLoading(true);
-                    const interval = setInterval(()=>{
-                        setProgress((prev) => (prev >= 100 ? 0 : prev + 10)); // Increment progress
-                        if(!loading){
-                            clearInterval(interval);
-                        }
-                    },600);
-                    try{
-                    const result = await longRunningFunction();
-                    clearInterval(interval);
 
-                    }catch{
-                    console.log("Error while searching video...")
-                        clearInterval(interval);
-                    }
-                    //setResult(result);
-                    */
+             
+                    return new Promise<void>(async()=>
+                    {
+                        //setTaskCount(taskCount+1);
+
+                        await result.message.forEach(async(item:any)=>{
+                            const id = randomId();
+                            // @ts-ignore
+                            let resolution = await electron.share({
+                                type:'get-resolution',
+                                query:item.url,
+                                query_id:id
+                            })
+
+                            items.push({
+                                title:item.title,
+                                uploader:item.uploader,
+                                id:item.id,
+                                resolution:resolution.message,
+                                thumbnails:item.thumbnails,
+                                duration:item.duration,
+                                duration_string:item.duration_string,
+                                url:item.url
+                            });
+                            console.log(items);
+                            searchBar.setSearchBuffer(items);
+                            console.log({max_task,taskCount})
+                            setProgress((taskCount/max_task)*100);
+                            setItemGhost(items);
+
+                        });
+
+                    });
+                    
                 }
             }}
         />
