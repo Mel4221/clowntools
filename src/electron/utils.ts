@@ -3,6 +3,7 @@ import { url } from "inspector";
 import path, { resolve } from 'path'
 import { pathToFileURL } from "url";
 import { promises as fs } from 'fs';
+import { exec } from 'child_process';
 
 
 export function isDev(): boolean
@@ -90,4 +91,10 @@ export async function readFile(filePath: string): Promise<string> {
     } catch (err) {
         throw new Error(`Error reading file: ${err}`);
     }
+}
+
+
+export async function sys_call(program:string):Promise<void>
+{
+    return await new Promise<void>((resolve)=>exec(program));
 }

@@ -13,6 +13,7 @@ const invalid_method =
 
 export function processTalk(obj:any):Promise<any>
 {
+    
     return new Promise<any>(async (resolve)=>
     {
         let data = 
@@ -20,6 +21,7 @@ export function processTalk(obj:any):Promise<any>
             status:'OK',
             message:{}
         }
+ 
          if(typeof obj !== 'object' || obj === null)
          {
                   resolve(invalid_method);
