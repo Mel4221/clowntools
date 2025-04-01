@@ -5,7 +5,7 @@ import { BrowserWindow ,Tray,Menu,app} from "electron";
 export function createTray(mainWindow: BrowserWindow)
 {
        const tray = new Tray(
-            "src/electron/assets/setting.png"
+            "src/electron/assets/icon.png"
             /*
             path.join(getAssetPath(),
             process.platform === 'darwin' ? 'setting.png':'setting.png'
