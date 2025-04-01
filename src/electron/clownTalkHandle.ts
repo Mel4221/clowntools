@@ -2,7 +2,6 @@ import { rejects } from "assert";
 import { error } from "console";
 import { stat } from "fs";
 import { resolve } from "path";
-import { searchVideo } from "./youz_api/searchVideo.js";
 
 const invalid_method =
     {
@@ -28,10 +27,9 @@ export function processTalk(obj:any):Promise<any>
          
          switch(obj.type)
          {
-            case 'search-video':
-                data.message = await searchVideo(obj.query,'10',obj.query_id);
-                console.log(data.message);
-                break;
+            /*
+                here is where you add your comunications types
+            */
             default:
                 resolve(invalid_method);
                 return;

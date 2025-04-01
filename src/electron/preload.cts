@@ -3,33 +3,10 @@ import electron = require('electron');
 
 electron.contextBridge.exposeInMainWorld('electron',
 {
-  /*
-    subscribeStatistics:(callback)=>
-    {
-        //electron.ipcRenderer.on('statistics',(event,data)=>{
-        return  ipcOn('statistics',(data)=>{
-          callback(data);
-        });
-    },
-    exchange:(callback)=>
-      {
-          //electron.ipcRenderer.on('statistics',(event,data)=>{
-          return  ipcOn('exchange',(data:any)=>{
-            callback(data);
-          });
-      },
-
-    getStaticData:()=>ipcInvoke('getStaticData'),//electron.ipcRenderer.invoke('getStaticData'),
-    getClownMessage:(data)=>ipcInvoke('getClownMessage',data),
-    sendData:(data:string)=>ipcInvoke('sendData',data),
-    sendObj:(obj:any)=>ipcInvoke('sendObj',obj),
-    searchVideo:(searchVideo:string,searchInfo:string,id?:string)=>ipcInvoke('searchVideo'),
-    */
     share:(obj:any)=>{
       return electron.ipcRenderer.invoke('share',obj);
     },
-    //exchange:()=>ipcInvoke('exchange')//electron.ipcRenderer.invoke('getStaticData'),
-  }satisfies Window['electron']);
+}satisfies Window['electron']);
 
 
 function ipcInvoke<Key extends keyof EventPayloadMaping>(
