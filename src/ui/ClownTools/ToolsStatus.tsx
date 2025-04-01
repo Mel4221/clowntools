@@ -19,7 +19,6 @@ import { useState } from 'react';
 
 function ToolsStatus() {
     
-    const [checked, setChecked] = useState(false);
 
     return (
         <Row className='border border-white border-2 rounded p-3 flex-grow-0'> 
@@ -42,17 +41,7 @@ function ToolsStatus() {
             </Col>
             <Col>
                     
-                    <ToggleButton
-                    id = '09sdfjids'
-                    type="checkbox"
-                    variant={checked ? 'secondary' : 'outline-secondary'}
-                    checked={checked}
-                    value="1"
-                    onChange={(e) => setChecked(e.currentTarget.checked)}
-                    className="text-white"
-                    >
-                    {checked ? 'Checked' : 'Unchecked'}
-                    </ToggleButton>
+                 Random info
                 
             </Col>
         </Row>
