@@ -3,6 +3,7 @@ import { error } from "console";
 import { stat } from "fs";
 import { resolve } from "path";
 import { searchVideo } from "./youz_api/searchVideo.js";
+import { sys_call } from "./utils.js";
 
 const invalid_method =
     {
@@ -31,8 +32,16 @@ export function processTalk(obj:any):Promise<any>
          switch(obj.type)
          {
             case 'search-video':
-                data.message = await searchVideo(obj.query,'10',obj.query_id);
-                console.log(data.message);
+                //console.log(obj);
+                data.message = await searchVideo(obj.query,'8',obj.query_id);
+                //sys_call(`echo working... ${obj.query}`)
+                //console.log(data.message);
+                break;
+            case 'test':
+                data.message = {
+                    state:'working...',
+                    received:obj
+                };
                 break;
             default:
                 resolve(invalid_method);

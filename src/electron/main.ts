@@ -40,7 +40,7 @@ app.on('ready', () => {
     */
 
     ipcMainHandle('share', async (data?: any) => {
-        console.log(data);
+        //console.log(data);
         // Directly return the object, no need to create a new Promise
         return new Promise<any>(async (resolve)=>{
             resolve(await processTalk(data));

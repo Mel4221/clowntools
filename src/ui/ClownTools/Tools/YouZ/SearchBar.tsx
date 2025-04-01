@@ -73,15 +73,14 @@ export function SearchBar(searchBar:SearchBarProps)
                     // @ts-ignore
                     let result = await electron.share(
                     {
+                        /*
                         type:'search-video',
                         query:'yo soy tu gominola',
                         query_id:'test'
-                        /*
+                        */
                         type:'search-video',
                         query:searchBar.text,
                         query_id:randomId()
-                        */
-
                     });
                     console.log(result);
                     //handleSearch();    // Your search function

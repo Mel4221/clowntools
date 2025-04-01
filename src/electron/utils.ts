@@ -4,6 +4,10 @@ import path, { resolve } from 'path'
 import { pathToFileURL } from "url";
 import { promises as fs } from 'fs';
 import { exec } from 'child_process';
+import { promisify } from 'util';
+import { rm } from 'fs/promises'; 
+
+const execAsync = promisify(exec);
 
 
 export function isDev(): boolean
@@ -94,7 +98,28 @@ export async function readFile(filePath: string): Promise<string> {
 }
 
 
-export async function sys_call(program:string):Promise<void>
-{
-    return await new Promise<void>((resolve)=>exec(program));
+export async function sys_call(command: string): Promise<void> {
+    try {
+      const { stdout, stderr } = await execAsync(command);
+      
+      if (stderr) {
+        console.warn('Command stderr:', stderr);
+      }
+      
+      console.log('Command output:', stdout);
+    } catch (error) {
+      console.error('Command failed:', error);
+      throw error; // Re-throw if you want calling code to handle it
+    }
+  }
+
+
+export async function deleteFile(path: string) {
+  try {
+    await rm(path); 
+    return true;
+  } catch (error) {
+    //if (error.code !== 'ENOENT') throw error; // Re-throw unless "not found"
+    return false;
+  }
 }
