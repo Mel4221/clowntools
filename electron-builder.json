@@ -1,5 +1,5 @@
 {
-    "appId":"com.clowntools.ready",
+    "appId":"com.clowntools.app",
     "files":["dist-electron","dist-react"],
     "extraResources":[
     "dist-electron/preload.cjs",
@@ -11,7 +11,7 @@
         "target":"dmg"
     },
     "linux":{
-        "target":["AppImage", "snap"],
+        "target":["AppImage"],
         "category":"Utility"
     },
     "win":{
