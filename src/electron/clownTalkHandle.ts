@@ -30,6 +30,12 @@ export function processTalk(obj:any):Promise<any>
             /*
                 here is where you add your comunications types
             */
+            case 'test':
+                data.message = {
+                    info:'message received and working...',
+                    received:obj
+                }
+                break;
             default:
                 resolve(invalid_method);
                 return;

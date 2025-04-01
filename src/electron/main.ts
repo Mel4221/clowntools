@@ -8,7 +8,7 @@ app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: 1400,
         height: 1200,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: false, 

@@ -6,7 +6,7 @@
     "src/ui/assets/**",
     "public/**"
     ],
-    "icon": "src/ui/assets/setting.png",
+    "icon": "src/electron/assets/setting.png",
     "mac":{
         "target":"dmg"
     },
