@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState} from 'react';
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -17,8 +17,16 @@ import Label from 'react-bootstrap/FormLabel';
 import Tools from './Tools';
 import ToolsStatus from './ToolsStatus';
 
+interface ClownType{
+    message:Array<any>|any;
+    setMessage:(obj:Array<any>)=>void;
+}
+
+const defaultClown: ClownType = { message: {},setMessage:()=>{} }; // Provide a sensible default
+
+const ClownContext = createContext<ClownType>(defaultClown);
 function ClownTools() {
-    
+     const [ClownMessage,setClownMessage] = useState<ClownType>();
     return (
         <div style={{ 
             height: '100vh', 
@@ -26,10 +34,12 @@ function ClownTools() {
             display: 'flex',
             flexDirection: 'column'
         }} className="text-white w-100">
-            <Container fluid className="h-100 d-flex flex-column">
-                <Tools />  
-                <ToolsStatus/>  
-            </Container>
+            <ClownContext.Provider value={{message:ClownMessage,setMessage:(obj:Array<any>)=>{}}}>
+                <Container fluid className="h-100 d-flex flex-column">
+                    <Tools />  
+                    <ToolsStatus/>  
+                </Container>
+            </ClownContext.Provider>
         </div>
     );
 }

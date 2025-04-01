@@ -30,14 +30,10 @@ export interface SearchBarProps {
 export interface SearchState {
     active: boolean;
 }
-
-function Search(key:any)
-{
-    
-}
 // Create a context with a default value
 const defaultSearchState: SearchState = { active: false };
 const SearchContext = createContext<SearchState>(defaultSearchState);
+
 
 export function SearchBar(searchBar:SearchBarProps)
 {
@@ -47,12 +43,27 @@ export function SearchBar(searchBar:SearchBarProps)
     const [searchInfo,setSearchInfo] = useState<string>("");
     const [item_ghost,setItemGhost] = useState<any>();
     const max_task = 8;
-
+    let count = 0; 
+    let dots = '.';
     let items =[{
 
     }];   
  
- 
+    const getDots = ()=>{
+        switch(dots)
+        {
+            case '.':
+                dots = '..';
+            break;
+            case '..':
+                dots = '...';
+            break;
+            default:
+                dots = '.';
+            break;
+        }
+
+    };
 
       
     return(
@@ -69,9 +80,34 @@ export function SearchBar(searchBar:SearchBarProps)
             }}
             onKeyDown={async (e)=>{
                 if (e.key === 'Enter') {
-                    
+                    //setProgress(50);
                     e.preventDefault(); // Prevent form submission if inside <form>
-                    setLoading(true);
+                    //localStorage.setItem('myKey', 'myValue');
+
+                    const dots_interval = setInterval(()=>{
+                        //count++; 
+                        getDots();
+                        setSearchInfo(`Searching${dots}`);
+                        //setProgress((count/max_task)*100);
+                       
+                    },400);
+                    const interval = setInterval(()=>{
+                        count++; 
+                        getDots();
+                        setSearchInfo(`Searching${dots}`);
+                        setProgress((count/max_task)*100);
+                        //console.log(taskCount);
+                        if(count > max_task){
+                            clearInterval(interval);
+                            clearInterval(dots_interval);
+                            setProgress(0);
+                            setSearchInfo('');
+
+                        }
+                    },4000);
+                    
+                    
+                  //  setLoading(true);
                     
                     // @ts-ignore
                     let result = await electron.share(
@@ -83,11 +119,12 @@ export function SearchBar(searchBar:SearchBarProps)
                     });
 
              
-                    return new Promise<void>(async()=>
+                    let test = await new Promise<void>(async()=>
                     {
-                        //setTaskCount(taskCount+1);
+                       // setTaskCount(taskCount+1);
 
-                        await result.message.forEach(async(item:any)=>{
+                        await result.message.forEach(async(item:any)=>
+                        {
                             const id = randomId();
                             // @ts-ignore
                             let resolution = await electron.share({
@@ -95,6 +132,7 @@ export function SearchBar(searchBar:SearchBarProps)
                                 query:item.url,
                                 query_id:id
                             })
+                             //   setProgress((taskCount/max_task)*100);
 
                             items.push({
                                 title:item.title,
@@ -106,16 +144,16 @@ export function SearchBar(searchBar:SearchBarProps)
                                 duration_string:item.duration_string,
                                 url:item.url
                             });
+                            
                             console.log(items);
                             searchBar.setSearchBuffer(items);
                             console.log({max_task,taskCount})
-                            setProgress((taskCount/max_task)*100);
-                            setItemGhost(items);
+                           // setItemGhost
 
                         });
 
                     });
-                    
+                    console.log(test);
                 }
             }}
         />

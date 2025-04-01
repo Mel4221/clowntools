@@ -1,11 +1,12 @@
+import { SettingsTabs } from "./SettingsTabs/SettingsTabs";
 
 
 
-const Settings =()=>
+const Settings = ()=>
 {
     return (
         <>
-        Not Ready Yet
+            <SettingsTabs/>
         </>
     );
 }

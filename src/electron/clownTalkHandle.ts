@@ -34,7 +34,7 @@ export function processTalk(obj:any):Promise<any>
          {
             case 'search-video':
                 //console.log(obj);
-                data.message = await searchVideo(obj.query,'8',obj.query_id);
+                data.message = await searchVideo(obj.query,'8',obj.query_id,obj?.holdit);
                 //sys_call(`echo working... ${obj.query}`)
                 //console.log(data.message);
                 break;

@@ -1,4 +1,5 @@
 import path, { resolve } from 'path';
+import fs from 'fs';
 import { parseVideoSearch } from './parseVideoSearch.js';
 import 
 {
@@ -10,15 +11,17 @@ import
  
 
   
-export function searchVideo(searchInfo: string,searchNumber: string,id:string): Promise<any>
+export function searchVideo(searchInfo: string,searchNumber: string,id:string,holdit?:boolean): Promise<any>
 {
     try{
         return new Promise(async(resolve)=>{
+        
         const temp_file = `${id}_search.json`;
 
-        const command = `yt-dlp "ytsearch${searchNumber}:${searchInfo}" --dump-json --flat-playlist > ${temp_file}`;        
-
-        await sys_call(command);
+        if(!fs.existsSync(temp_file)){
+            const command = `yt-dlp "ytsearch${searchNumber}:${searchInfo}" --dump-json --flat-playlist > ${temp_file}`;        
+            await sys_call(command);
+        }
 
         //console.log({temp_file,searchInfo,command});
 
@@ -26,7 +29,7 @@ export function searchVideo(searchInfo: string,searchNumber: string,id:string): 
         //console.log({raw:raw_data});
         let data = parseVideoSearch(raw_data);
         //console.log({data:data});
-        await deleteFile(temp_file);
+        if(!holdit)await deleteFile(temp_file);
         resolve(data);
     });
     }catch(error){
