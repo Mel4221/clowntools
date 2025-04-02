@@ -1,6 +1,4 @@
-
-
-import { useEffect, useState  } from 'react'
+import React, { createContext, useState} from 'react';
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -16,21 +14,15 @@ import  Nav  from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { Download } from 'react-bootstrap-icons';
-import { CardsPogressBar } from './CardsProgressBar';
+import ToggleButton from 'react-bootstrap/ToggleButton'
 
- 
-export function CardsResolutions(res:any)
+export function ToolsSettings()
 {
-    //console.log({res});
-    //return(<></>)
+    const [checked, setChecked] = useState(false);
 
     return(
         <>
-            {/*i don't know why in hell i did this please don't judge */}
-         
-            
+           Not ready yet.
         </>
     )
 }

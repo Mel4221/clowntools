@@ -1,4 +1,4 @@
-import React, { createContext, useState} from 'react';
+import React, { createContext, useEffect, useState} from 'react';
 //import '../bootstrap/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert';
@@ -19,22 +19,61 @@ import ToggleButton from 'react-bootstrap/ToggleButton'
 export function GeneralSettings()
 {
     const [checked, setChecked] = useState(false);
+    const [stateCheck,setStateCheck] = useState(false);
+    const loadHoldit = ()=>{
+        let holdit = localStorage.getItem('holdit');
+        console.log(holdit);
+        if(!holdit){
+            switch(checked)
+            {
+                    case false:
+                        localStorage.setItem('holdit',"off");
+                        break;
+                    case true:
+                        localStorage.setItem('holdit',"on");
+                        break;
+            }
+            return;
+        }if(holdit && !stateCheck)
+        {
+            setChecked(holdit==="on"?true:false);
+            setStateCheck(true);
+            return;
+        }else{
+            switch(checked)
+            {
+                    case false:
+                        localStorage.setItem('holdit',"off");
+                        break;
+                    case true:
+                        localStorage.setItem('holdit',"on");
+                        break;
+            }
+        }
+       // console.log(checked);
+
+    };
+    useEffect(()=>{
+        loadHoldit();
+    },[]);
 
     return(
         <>
-            <Button>Working...</Button>
             <Row>
-                <Col>
+                <Col xm={1} className='p-2 m-1'>
                <ToggleButton
-                    id = '09sdfjids'
+                    id = 'holdit'
                     type="checkbox"
                     variant={checked ? 'secondary' : 'outline-secondary'}
                     checked={checked}
                     value="1"
-                    onChange={(e) => setChecked(e.currentTarget.checked)}
+                    onChange={(e) =>{
+                        setChecked(e.currentTarget.checked);
+                        loadHoldit();
+                    }}
                     className="text-white"
                     >
-                    {checked ? 'Checked' : 'Unchecked'}
+                    {checked ? 'holdit on' : 'holdit off'}
                 </ToggleButton>
                 </Col>
             </Row>

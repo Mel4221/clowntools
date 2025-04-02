@@ -20,12 +20,14 @@ import YouZ from './Tools/YouZ/YouZ';
 interface ToolsType {
     Tool: React.ComponentType | null; // Define the type for the Tool prop
 } 
+/*
 // global.d.ts
 interface Window {
     electronAPI: {
       runCommand: (command: string) => Promise<string>;
     };
   }
+  */
 
  
 

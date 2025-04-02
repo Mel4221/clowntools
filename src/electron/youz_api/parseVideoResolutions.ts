@@ -19,7 +19,7 @@ export function parseVideoResolutions(formatString:string|any):Array<any>{
         
         formats.push({
             label: width,
-            resolution: resolution
+            format: resolution
         });
     }
     
@@ -27,7 +27,7 @@ export function parseVideoResolutions(formatString:string|any):Array<any>{
     return (function(uniqueFormats) {
         const seen = new Set();
         return uniqueFormats.filter(item => {
-            const key = `${item.label}-${item.resolution}`;
+            const key = `${item.label}-${item.format}`;
             if (!seen.has(key)) {
                 seen.add(key);
                 return true;

@@ -25,52 +25,45 @@ export interface CardsProps {
     items:Array<any>;
     
 }
-function map()
-{
-    
-}
-export function Cards(cardsGroup:CardsProps)
-{
-    const[message,setMessage] = useState<string>();
-    const[porcent,setPorcent] = useState<string>();
-      
-    let items = cardsGroup.items;
-    if (items.length) 
-        {
-        return(
+
+export function Cards(cardsGroup: CardsProps) {
+    const [message, setMessage] = useState<string>();
+    const [porcent, setPorcent] = useState<string>();
+
+    let items = cardsGroup.items || [];
+
+    return (
         <>
-         {items.forEach((item) => 
-        (  
-            <Col key={item.id}>
-                <Card className="h-100 shadow-sm bg-black text-white">
-                    <Card.Img 
-                        variant="top" 
-                        src={item.thumbnails?
-                            item.thumbnails[1].url:
-                            ""}
-                        style={{ 
-                            height: '200px', 
-                            objectFit: 'cover'
-                        }}
-                    />
-                    <Card.Body>
-                        <Card.Title className="text-truncate">
-                            {item.title}
-                        </Card.Title>
-                        <Card.Text className="text-white small">
-                        {item.uploader}
-                        </Card.Text>
-                        <CardsButtons/>   
-                    </Card.Body>
-                    <CardsPogressBar
-                    porcent={porcent}
-                    message={message}
-                    />
-                </Card>
-            </Col>
+            {items.map((item) => (
+                item.id ? (
+                    <Col key={item.id}>
+                        <Card className="h-100 shadow-sm bg-black text-white">
+                            <Card.Img
+                                variant="top"
+                                src={item.thumbnails?.[1]?.url || item.thumbnails?.[0]?.url || null}
+                                style={{
+                                    height: '200px',
+                                    objectFit: 'cover'
+                                }}
+                            />
+                            <Card.Body>
+                                <Card.Title className="text-truncate">
+                                    {item.title}
+                                </Card.Title>
+                                <Card.Text className="text-white small">
+                                    {item.uploader}
+                                </Card.Text>
+                                <CardsButtons 
+                                    resolutions={item.resolution}
+                                />
+                            </Card.Body>
+                            <CardsPogressBar porcent={porcent} message={message} />
+                        </Card>
+                    </Col>
+                ) : null
             ))}
-        </>)
-    }else{
-        return <></>
-    } 
+        </>
+    );
 }
+
+ 

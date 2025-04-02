@@ -19,27 +19,33 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 import { CardsPogressBar } from './CardsProgressBar';
 import { CardsResolutions } from './CardsResolutions';
-interface CardsButtonsProps
-{
 
-}
 
-export function CardsButtons(button:CardsButtonsProps)
+export function CardsButtons(resolutions:any)
 {
+    const[VideoResolution,setVideoResolution] = useState<string|null>('Video');
+
     return(
         <div className="d-flex gap-2">
         <Button variant="secondary" size="sm">
             Song
             <Download className="text-white ms-2" size={24} />
         </Button>
-        <Dropdown onSelect={()=>{}}>
+        <Dropdown onSelect={(e)=>{
+             
+        }}>
             <Dropdown.Toggle as={Button} variant="secondary" size="sm">
-                {}
+                Video
                 <Download className="text-white ms-2" size={24} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <CardsResolutions/>
+            {resolutions.resolutions.map((resolution:any)=>
+            {
+                return(
+                <Dropdown.Item href={resolution.format} as="button">{resolution.label}p</Dropdown.Item>
+                )
+            })}
             </Dropdown.Menu>
         </Dropdown>
     </div>

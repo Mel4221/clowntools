@@ -41,7 +41,7 @@ export function SearchBar(searchBar:SearchBarProps)
     const [taskCount, setTaskCount] = useState<number>(0);
     const [progress, setProgress] = useState<number>(0);
     const [searchInfo,setSearchInfo] = useState<string>("");
-    const [item_ghost,setItemGhost] = useState<any>();
+
     const max_task = 8;
     let count = 0; 
     let dots = '.';
@@ -83,18 +83,24 @@ export function SearchBar(searchBar:SearchBarProps)
                     //setProgress(50);
                     e.preventDefault(); // Prevent form submission if inside <form>
                     //localStorage.setItem('myKey', 'myValue');
-
+                        
                     const dots_interval = setInterval(()=>{
                         //count++; 
                         getDots();
                         setSearchInfo(`Searching${dots}`);
-                        //setProgress((count/max_task)*100);
-                       
+                        setProgress((count/max_task)*100);
+                        if(count >= max_task){
+                            clearInterval(dots_interval);
+                            setProgress(0);
+                            setSearchInfo('');
+                            searchBar.setText('');
+                        }
                     },400);
+                    /*
                     const interval = setInterval(()=>{
-                        count++; 
+                        //count++; 
                         getDots();
-                        setSearchInfo(`Searching${dots}`);
+                        //setSearchInfo(`Searching${dots} ${count}`);
                         setProgress((count/max_task)*100);
                         //console.log(taskCount);
                         if(count > max_task){
@@ -105,55 +111,75 @@ export function SearchBar(searchBar:SearchBarProps)
 
                         }
                     },4000);
+                    */
+
                     
                     
                   //  setLoading(true);
-                    
+                    let holdit = localStorage.getItem('holdit')?true:false;
+                    let id = randomId();
+                    let query = searchBar.text;
+                    let holdData = 
+                    {
+                        id,
+                        query,
+                        result:[{}]
+                    }
                     // @ts-ignore
                     let result = await electron.share(
                     {
-                      
                         type:'search-video',
-                        query:searchBar.text,
-                        query_id:randomId()
+                        query:query,
+                        query_id:id,
+                        holdit:holdit
                     });
 
              
-                    let test = await new Promise<void>(async()=>
+                    await new Promise<void>(async()=>
                     {
                        // setTaskCount(taskCount+1);
 
-                        await result.message.forEach(async(item:any)=>
+                       await Promise.all(result.message.map(async (item: any) =>
                         {
-                            const id = randomId();
-                            // @ts-ignore
-                            let resolution = await electron.share({
-                                type:'get-resolution',
-                                query:item.url,
-                                query_id:id
-                            })
-                             //   setProgress((taskCount/max_task)*100);
+                            try{
+                                const id = randomId();
+                                // @ts-ignore
+                                let resolution = await electron.share({
+                                    type:'get-resolution',
+                                    query:item.url,
+                                    query_id:id
+                                })
+                                //   setProgress((taskCount/max_task)*100);
 
-                            items.push({
-                                title:item.title,
-                                uploader:item.uploader,
-                                id:item.id,
-                                resolution:resolution.message,
-                                thumbnails:item.thumbnails,
-                                duration:item.duration,
-                                duration_string:item.duration_string,
-                                url:item.url
-                            });
-                            
-                            console.log(items);
-                            searchBar.setSearchBuffer(items);
-                            console.log({max_task,taskCount})
-                           // setItemGhost
+                                items.push({
+                                    title:item.title,
+                                    uploader:item.uploader,
+                                    id:item.id,
+                                    resolution:resolution.message,
+                                    thumbnails:item.thumbnails,
+                                    duration:item.duration,
+                                    duration_string:item.duration_string,
+                                    url:item.url
+                                });
+                                
+                                //console.log(items);
+                                searchBar.setSearchBuffer(items);
+                                holdData.result = items;
+                                localStorage.setItem('hold-data',JSON.stringify(holdData));
+                                count++; 
+                                //setTaskCount(taskCount+1);
+                                //console.log({max_task,taskCount})
+                            // setItemGhost
+                                }catch(error){
+                                    console.log(error);
+                                }
 
-                        });
+                        }));
+                        searchBar.setSearchBuffer(items);
 
                     });
-                    console.log(test);
+                    //console.log(test);
+
                 }
             }}
         />
