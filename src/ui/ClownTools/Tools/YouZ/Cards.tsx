@@ -27,8 +27,8 @@ export interface CardsProps {
 }
 
 export function Cards(cardsGroup: CardsProps) {
-    const [message, setMessage] = useState<string>();
-    const [porcent, setPorcent] = useState<string>();
+    const [message, setMessage] = useState<string>('Downloading...');
+    const [porcent, setPorcent] = useState<string>('50%');
 
     let items = cardsGroup.items || [];
 
@@ -57,6 +57,7 @@ export function Cards(cardsGroup: CardsProps) {
                                     resolutions={item.resolution}
                                 />
                             </Card.Body>
+
                             <CardsPogressBar porcent={porcent} message={message} />
                         </Card>
                     </Col>

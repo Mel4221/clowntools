@@ -18,36 +18,54 @@ import Label from 'react-bootstrap/FormLabel';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 import { CardsPogressBar } from './CardsProgressBar';
-import { CardsResolutions } from './CardsResolutions';
 
 
-export function CardsButtons(resolutions:any)
-{
-    const[VideoResolution,setVideoResolution] = useState<string|null>('Video');
+export function CardsButtons(resolutions: any) {
+    const [VideoResolution, setVideoResolution] = useState<string>('Video');
 
-    return(
+    const handleSelect = (eventKey: string | null) => {
+        if (eventKey) {
+            const selected = resolutions.resolutions.find((res: any) => res.label === eventKey);
+            if (selected) {
+                setVideoResolution(`${selected.label}p`);
+            }
+        }
+    };
+
+    return (
+        <>
         <div className="d-flex gap-2">
-        <Button variant="secondary" size="sm">
-            Song
-            <Download className="text-white ms-2" size={24} />
-        </Button>
-        <Dropdown onSelect={(e)=>{
-             
-        }}>
-            <Dropdown.Toggle as={Button} variant="secondary" size="sm">
-                Video
+            <Button variant="secondary" size="sm">
+                Song
                 <Download className="text-white ms-2" size={24} />
-            </Dropdown.Toggle>
+            </Button>
+            <Dropdown onSelect={handleSelect}>
+                
+                
+                <Dropdown.Toggle as={Button} variant="secondary" size="sm">
+                    {VideoResolution}
+                    <Download className="text-white ms-2" size={24} />
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-            {resolutions.resolutions.map((resolution:any)=>
-            {
-                return(
-                <Dropdown.Item href={resolution.format} as="button">{resolution.label}p</Dropdown.Item>
-                )
-            })}
-            </Dropdown.Menu>
-        </Dropdown>
-    </div>
+                <Dropdown.Menu>
+                    {resolutions.resolutions.map((resolution: any) => (
+                        <Dropdown.Item 
+                            key={resolution.format+resolution.label+'p'}
+                            href={resolution.format} 
+                            eventKey={resolution.label}
+                            as="button"
+
+                            onClick={(e) => e.preventDefault()}
+                        >
+                            {resolution.label}p
+                        </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+            </Dropdown>
+            
+        </div>
+
+        </>
+        
     )
 }

@@ -41,7 +41,7 @@ export function SearchBar(searchBar:SearchBarProps)
     const [taskCount, setTaskCount] = useState<number>(0);
     const [progress, setProgress] = useState<number>(0);
     const [searchInfo,setSearchInfo] = useState<string>("");
-
+    const [searchBarState,setSearchBarState] = useState<boolean>(true); 
     const max_task = 8;
     let count = 0; 
     let dots = '.';
@@ -71,6 +71,7 @@ export function SearchBar(searchBar:SearchBarProps)
         <Form>
            
         <Form.Control 
+            disabled = {searchBarState?false:true}
             type="text" 
             placeholder="Search videos..." 
             className="rounded-pill"
@@ -83,7 +84,7 @@ export function SearchBar(searchBar:SearchBarProps)
                     //setProgress(50);
                     e.preventDefault(); // Prevent form submission if inside <form>
                     //localStorage.setItem('myKey', 'myValue');
-                        
+                    setSearchBarState(false);
                     const dots_interval = setInterval(()=>{
                         //count++; 
                         getDots();
@@ -94,6 +95,7 @@ export function SearchBar(searchBar:SearchBarProps)
                             setProgress(0);
                             setSearchInfo('');
                             searchBar.setText('');
+                            setSearchBarState(true);
                         }
                     },400);
                     /*
