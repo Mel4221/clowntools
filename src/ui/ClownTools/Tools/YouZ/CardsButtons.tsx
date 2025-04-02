@@ -24,6 +24,17 @@ import { CardsResolutions } from './CardsResolutions';
 export function CardsButtons(resolutions:any)
 {
     const[VideoResolution,setVideoResolution] = useState<string|null>('Video');
+   
+    const handleSelect = (eventKey: string | null, event: React.SyntheticEvent<unknown>) => {
+        if (eventKey) {
+            //@ts-ignore
+            const selected = resolutions.resolutions.find(res => res.label === eventKey);
+            if (selected) {
+                setVideoResolution(`${selected.label}p`);
+            }
+        }
+    };
+
 
     return(
         <div className="d-flex gap-2">
@@ -31,11 +42,9 @@ export function CardsButtons(resolutions:any)
             Song
             <Download className="text-white ms-2" size={24} />
         </Button>
-        <Dropdown onSelect={(e)=>{
-             
-        }}>
+        <Dropdown onSelect={(e)=>{handleSelect}}>
             <Dropdown.Toggle as={Button} variant="secondary" size="sm">
-                Video
+                {VideoResolution}
                 <Download className="text-white ms-2" size={24} />
             </Dropdown.Toggle>
 
