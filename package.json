@@ -9,7 +9,7 @@
     "dev:react": "vite",
     "dev:electron": "npm run transpile:electron; NODE_ENV=development electron .",
     "dev:re": "vite",
-    "dev:el": "electron .",
+    "dev:el": "npm run transpile:electron; NODE_ENV=development electron .",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
