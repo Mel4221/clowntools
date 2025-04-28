@@ -20,14 +20,14 @@ import { Download } from 'react-bootstrap-icons';
 import { Cards } from './Cards';
 
 export interface VideoCardProps {   
-    searchBuffer:Array<any>;
+    searchResult:Array<any>;
 }
 export function VideoCard(card:VideoCardProps)
 {
     return(
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                 <Cards
-                items={card.searchBuffer}
+                items={card.searchResult}
                 />
         </Row>
     );

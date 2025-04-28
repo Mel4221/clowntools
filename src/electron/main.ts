@@ -6,8 +6,8 @@ import { poolResources } from './resourcesManager.js';
 import { getStaticData } from './resourcesManager.js'
 import { createTray } from './createTray.js';
 import { createMenu } from './menu.js';
-import { callProgram } from './youz_api/youz.js'
-import { searchVideo } from './youz_api/searchVideo.js';
+import { callProgram } from './YouZ_Backend/youz.js'
+import { searchVideo } from './YouZ_Backend/searchVideo.js';
 import { json } from 'stream/consumers';
 import { Receipt } from 'react-bootstrap-icons';
 import { processTalk } from './clownTalkHandle.js';

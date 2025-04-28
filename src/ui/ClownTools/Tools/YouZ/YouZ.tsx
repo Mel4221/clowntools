@@ -33,7 +33,7 @@ function YouZ() {
     const[ImgUrl,setImgUrl] = useState<string>("/img.jpg");
     const[SearchBarText,setSearchBarText] = useState<string>("");
     const[VideoResolution,setVideoResolution] = useState<string>("Video");
-    const[SearchBuffer,setSearchBuffer] = useState<Array<any>>([{}]);
+    const[SearchResult,setSearchResult] = useState<Array<any>>([{}]);
     
    
 
@@ -51,7 +51,7 @@ function YouZ() {
                         <SearchBar 
                         text={SearchBarText} 
                         setText={setSearchBarText}
-                        setSearchBuffer={setSearchBuffer}
+                        setSearchResult={setSearchResult}
                         />
                     </Col>
                 </Row>
@@ -60,7 +60,7 @@ function YouZ() {
                 <Row className="flex-grow-1 overflow-auto m-0 p-3">
                     <Col>
                         <VideoCard
-                         searchBuffer={SearchBuffer}
+                            searchResult={SearchResult}
                         />
                     </Col>
                 </Row>

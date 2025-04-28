@@ -19,13 +19,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 import { CardsPogressBar } from './CardsProgressBar';
 
-
-export function CardsButtons(resolutions: any) {
+ 
+export function CardsButtons(props: {items:any,url:any}) {
     const [VideoResolution, setVideoResolution] = useState<string>('Video');
 
     const handleSelect = (eventKey: string | null) => {
         if (eventKey) {
-            const selected = resolutions.resolutions.find((res: any) => res.label === eventKey);
+            const selected = props.items.resolutions.find((res: any) => res.label === eventKey);
             if (selected) {
                 setVideoResolution(`${selected.label}p`);
             }
@@ -48,7 +48,7 @@ export function CardsButtons(resolutions: any) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {resolutions.resolutions.map((resolution: any) => (
+                    {props.items.resolutions.map((resolution: any) => (
                         <Dropdown.Item 
                             key={resolution.format+resolution.label+'p'}
                             href={resolution.format} 

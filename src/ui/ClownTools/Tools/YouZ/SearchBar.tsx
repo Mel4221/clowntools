@@ -23,7 +23,7 @@ import { randomId } from '../utils/utils';
 export interface SearchBarProps {
     text: string;
     setText: (text: string) => void;
-    setSearchBuffer:(buffer:Array<any>)=>void;
+    setSearchResult:(result:Array<any>)=>void;
 }
 
 
@@ -165,7 +165,7 @@ export function SearchBar(searchBar:SearchBarProps)
                                 });
                                 
                                 //console.log(items);
-                                searchBar.setSearchBuffer(items);
+                                searchBar.setSearchResult(items);
                                 holdData.result = items;
                                 localStorage.setItem('hold-data',JSON.stringify(holdData));
                                 count++; 
@@ -177,7 +177,7 @@ export function SearchBar(searchBar:SearchBarProps)
                                 }
 
                         }));
-                        searchBar.setSearchBuffer(items);
+                        searchBar.setSearchResult(items);
 
                     });
                     //console.log(test);

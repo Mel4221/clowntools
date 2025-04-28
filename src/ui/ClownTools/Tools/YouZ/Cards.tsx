@@ -53,9 +53,10 @@ export function Cards(cardsGroup: CardsProps) {
                                 <Card.Text className="text-white small">
                                     {item.uploader}
                                 </Card.Text>
-                                <CardsButtons 
-                                    resolutions={item.resolution}
-                                />
+                                <CardsButtons
+                                    items={item.resolution}
+                                    url={item.url}
+                                />                              
                             </Card.Body>
 
                             <CardsPogressBar porcent={porcent} message={message} />

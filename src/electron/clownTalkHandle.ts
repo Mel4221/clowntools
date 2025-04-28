@@ -2,14 +2,14 @@ import { rejects } from "assert";
 import { error } from "console";
 import { stat } from "fs";
 import { resolve } from "path";
-import { searchVideo } from "./youz_api/searchVideo.js";
+import { searchVideo } from "./YouZ_Backend/searchVideo.js";
 import { sys_call } from "./utils.js";
-import { getVideoResolutions } from "./youz_api/getVideoResolutions.js";
+import { getVideoResolutions } from "./YouZ_Backend/getVideoResolutions.js";
 
 const invalid_method =
     {
         status:'FAIL',
-        message:'INVALID clownTalk COMUNICATION METHODFAIL',
+        message:'INVALID clownTalk COMUNICATION METHOD',
     }
 
 

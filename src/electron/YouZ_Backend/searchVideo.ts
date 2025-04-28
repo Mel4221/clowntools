@@ -29,7 +29,7 @@ export function searchVideo(searchInfo: string,searchNumber: string,id:string,ho
         //console.log({raw:raw_data});
         let data = parseVideoSearch(raw_data);
         //console.log({data:data});
-        if(!holdit)await deleteFile(temp_file);
+        if(!holdit) await deleteFile(temp_file);
         resolve(data);
     });
     }catch(error){
