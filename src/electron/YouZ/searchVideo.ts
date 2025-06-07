@@ -19,15 +19,18 @@ export function searchVideo(searchInfo: string,searchNumber: string,id:string,ho
         const temp_file = `${id}_search.json`;
 
         if(!fs.existsSync(temp_file)){
+            console.log("Calling yt-dlp");
             const command = `yt-dlp "ytsearch${searchNumber}:${searchInfo}" --dump-json --flat-playlist > ${temp_file}`;        
             await sys_call(command);
         }
 
-        //console.log({temp_file,searchInfo,command});
+        //codatansole.log({temp_file,searchInfo,command});
 
         let raw_data = await readFile(temp_file);
+        //console.log({"raw_data:":raw_data})
         //console.log({raw:raw_data});
         let data = parseVideoSearch(raw_data);
+        //console.log({"parsed_video_search":resolve(data)})
         //console.log({data:data});
         if(!holdit) await deleteFile(temp_file);
         resolve(data);

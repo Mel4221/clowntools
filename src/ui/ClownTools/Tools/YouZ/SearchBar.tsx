@@ -177,6 +177,7 @@ export function SearchBar(searchBar:SearchBarProps)
                                 }
 
                         }));
+                        //console.log
                         searchBar.setSearchResult(items);
 
                     });

@@ -24,14 +24,17 @@ export function CardsButtons(props: {items:any,url:any}) {
     const [VideoResolution, setVideoResolution] = useState<string>('Video');
 
     const handleSelect = (eventKey: string | null) => {
+        
         if (eventKey) {
-            const selected = props.items.resolutions.find((res: any) => res.label === eventKey);
+            const selected = props.items.find((res: any) => res.label === eventKey);
             if (selected) {
                 setVideoResolution(`${selected.label}p`);
             }
         }
+    
     };
-
+    //console.log({"resolutions:":props.items})
+    let items = props.items || []
     return (
         <>
         <div className="d-flex gap-2">
@@ -48,13 +51,12 @@ export function CardsButtons(props: {items:any,url:any}) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    {props.items.resolutions.map((resolution: any) => (
+                    {items.map((resolution: any) => (
                         <Dropdown.Item 
                             key={resolution.format+resolution.label+'p'}
                             href={resolution.format} 
                             eventKey={resolution.label}
                             as="button"
-
                             onClick={(e) => e.preventDefault()}
                         >
                             {resolution.label}p

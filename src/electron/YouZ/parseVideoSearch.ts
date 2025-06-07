@@ -8,6 +8,7 @@ export function parseVideoSearch(rawOutput:string):Promise<Array<any>>{
         // Manually parse to handle concatenated JSON objects
         for (let i = 0; i < rawOutput.length; i++) {
         const char = rawOutput[i];
+            
         if (char === '{') {
             if (depth === 0) {
             startIndex = i; // Mark start of a new object
@@ -19,7 +20,9 @@ export function parseVideoSearch(rawOutput:string):Promise<Array<any>>{
             // Extract the complete JSON object
             const jsonStr = rawOutput.slice(startIndex, i + 1);
             try {
-                jsonObjects.push(JSON.parse(jsonStr));
+                let json = JSON.parse(jsonStr);
+                jsonObjects.push(json);
+                console.log({"added":json})
             } catch (e) {
                 console.warn('Failed to parse JSON chunk:', e);
             }

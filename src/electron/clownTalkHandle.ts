@@ -2,15 +2,20 @@ import { rejects } from "assert";
 import { error } from "console";
 import { stat } from "fs";
 import { resolve } from "path";
-import { searchVideo } from "./YouZ_Backend/searchVideo.js";
+import { searchVideo } from "./YouZ/searchVideo.js";
 import { sys_call } from "./utils.js";
-import { getVideoResolutions } from "./YouZ_Backend/getVideoResolutions.js";
+import { getVideoResolutions } from "./YouZ/getVideoResolutions.js";
 
 const invalid_method =
     {
         status:'FAIL',
         message:'INVALID clownTalk COMUNICATION METHOD',
     }
+const fail_operation = 
+{
+    status:'FAIL',
+    message:'THERE WAS AN ERROR WHILE PROCESSING YOUR REQUEST'
+}
 
 
 export function processTalk(obj:any):Promise<any>
@@ -32,9 +37,11 @@ export function processTalk(obj:any):Promise<any>
          
          switch(obj.type)
          {
-            case 'search-video':
-                //console.log(obj);
-                data.message = await searchVideo(obj.query,'8',obj.query_id,obj?.holdit);
+             case 'search-video':
+                console.log({"Received Request":obj}); 
+                //data.message = "received"
+                
+                data.message = await searchVideo(obj.query,'16',obj.query_id,obj?.holdit);
                 //sys_call(`echo working... ${obj.query}`)
                 //console.log(data.message);
                 break;

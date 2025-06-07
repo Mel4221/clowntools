@@ -16,31 +16,27 @@ import Tabs from 'react-bootstrap/Tabs';
 import Label from 'react-bootstrap/FormLabel';
 import Tools from './Tools';
 import ToolsStatus from './ToolsStatus';
+import { ClownToolsProvider } from './ClownToolsContext';
 
-interface ClownType{
-    message:Array<any>|any;
-    setMessage:(obj:Array<any>)=>void;
-}
 
-const defaultClown: ClownType = { message: {},setMessage:()=>{} }; // Provide a sensible default
-
-const ClownContext = createContext<ClownType>(defaultClown);
 function ClownTools() {
-     const [ClownMessage,setClownMessage] = useState<ClownType>();
+
+    
     return (
+    <ClownToolsProvider>
         <div style={{ 
             height: '100vh', 
             background: 'black',
             display: 'flex',
             flexDirection: 'column'
         }} className="text-white w-100">
-            <ClownContext.Provider value={{message:ClownMessage,setMessage:(obj:Array<any>)=>{}}}>
+            
                 <Container fluid className="h-100 d-flex flex-column">
                     <Tools />  
                     <ToolsStatus/>  
                 </Container>
-            </ClownContext.Provider>
         </div>
+    </ClownToolsProvider>
     );
 }
 

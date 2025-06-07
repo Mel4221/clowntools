@@ -19,6 +19,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Download } from 'react-bootstrap-icons';
 import { CardsPogressBar } from './CardsProgressBar';
 import { CardsButtons } from './CardsButtons';
+import { useCardsState } from './CardsContext';
 
 
 export interface CardsProps {
@@ -29,12 +30,51 @@ export interface CardsProps {
 export function Cards(cardsGroup: CardsProps) {
     const [message, setMessage] = useState<string>('Downloading...');
     const [porcent, setPorcent] = useState<string>('50%');
+    const {cardsState,setCardsState} = useCardsState();
 
     let items = cardsGroup.items || [];
 
     return (
         <>
-            {items.map((item) => (
+           {items.map((item) => (
+                
+                item.id ? (
+                    <Col key={item.id}>
+                        <Card className="h-100 shadow-sm bg-black text-white">
+                            <Card.Img
+                                variant="top"
+                                src={item.thumbnails?.[1]?.url || item.thumbnails?.[0]?.url || null}
+                                style={{
+                                    height: '200px',
+                                    objectFit: 'cover'
+                                }}
+                            />
+                            <Card.Body>
+                                <Card.Title className="text-truncate">
+                                    {item.title}
+                                </Card.Title>
+                                <Card.Text className="text-white small">
+                                    {item.uploader}
+                                </Card.Text>
+                                <CardsButtons
+                                    items={item.resolution}
+                                    url={item.url}
+                                />                              
+                            </Card.Body>
+
+                            <CardsPogressBar porcent={porcent} message={message} />
+                        </Card>
+                    </Col>
+                ) : null    
+            ))}
+
+        </>
+    );
+}
+
+ 
+/*
+ {items.map((item) => (
                 item.id ? (
                     <Col key={item.id}>
                         <Card className="h-100 shadow-sm bg-black text-white">
@@ -64,8 +104,5 @@ export function Cards(cardsGroup: CardsProps) {
                     </Col>
                 ) : null
             ))}
-        </>
-    );
-}
 
- 
+*/
